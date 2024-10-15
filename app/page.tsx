@@ -114,14 +114,14 @@ export default function Home() {
             <h3 className="text-lg font-semibold mb-2">JavaScript</h3>
             <div className="relative">
               <Code>
-{`fetch('/api/user/${handle}')
+{`fetch('https://skool-api.vercel.app/api/user/${handle}')
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error('Error:', error));`}
               </Code>
               <Button
                 className="absolute top-2 right-2"
-                onClick={() => copyToClipboard(`fetch('/api/user/${handle}')
+                onClick={() => copyToClipboard(`fetch('https://skool-api.vercel.app/api/user/${handle}')
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error('Error:', error));`)}
