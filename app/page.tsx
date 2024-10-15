@@ -136,7 +136,7 @@ export default function Home() {
               <Code>
 {`import requests
 
-response = requests.get(f'https://your-api-domain.com/api/user/${handle}')
+response = requests.get(f'https://skool-api.vercel.app/api/user/${handle}')
 data = response.json()
 print(data)`}
               </Code>
@@ -144,7 +144,7 @@ print(data)`}
                 className="absolute top-2 right-2"
                 onClick={() => copyToClipboard(`import requests
 
-response = requests.get(f'https://your-api-domain.com/api/user/${handle}')
+response = requests.get(f'https://skool-api.vercel.app/api/user/${handle}')
 data = response.json()
 print(data)`)}
               >
