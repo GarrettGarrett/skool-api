@@ -46,6 +46,3 @@ async function fetchUserData(handle) {
   return response.text();
 }
 
-async function fetchUserPosts(handle) {
-  // Fetch user posts
-}
