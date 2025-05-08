@@ -11,7 +11,8 @@ export async function GET(request, { params }) {
 
     // Step 2: Extract the __NEXT_DATA__ JSON from the HTML
     const jsonData = extractJsonFromHtml(communityHtml);
-    
+
+
     // Optional: Log the raw data structure to assist in debugging
     // console.log('Raw JSON data structure:', JSON.stringify(jsonData.props.pageProps, null, 2));
 

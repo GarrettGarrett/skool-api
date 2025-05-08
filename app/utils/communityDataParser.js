@@ -107,6 +107,18 @@ export function parseCommunityData(jsonData) {
           profilePicture: user.metadata?.pictureProfile
         }));
       }
+
+      // Survey questions if available
+      if (currentGroup.metadata?.survey) {
+        try {
+          const surveyData = JSON.parse(currentGroup.metadata.survey);
+          if (Array.isArray(surveyData.survey)) {
+            communityData.surveyQuestions = surveyData.survey;
+          }
+        } catch (error) {
+          console.error("Error parsing survey data", error);
+        }
+      }
     } else if (pageProps.community) {
       // Fallback to older community structure
       communityData.id = pageProps.community.id;

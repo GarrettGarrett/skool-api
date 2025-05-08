@@ -1,4 +1,4 @@
-import { extractJsonFromHtml, parseUserData, parseUserPosts } from '@/app/utils/userDataParser';
+import { extractJsonFromHtml, parseUserData } from '@/app/utils/userDataParser';
 
 export async function GET(request, { params }) {
   const handle = params.handle;
