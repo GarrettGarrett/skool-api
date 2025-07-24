@@ -4,10 +4,14 @@ import * as cheerio from 'cheerio';
 export function parseUserData(jsonData) {
 
   try {
+    // Validate required data exists
+    if (!jsonData?.props?.pageProps?.currentUser) {
+      throw new Error('Current user data not found in response');
+    }
     
     const currentUser = jsonData.props.pageProps.currentUser;
-    const profileData = jsonData.props.pageProps.currentUser.profileData;
-    const settings = jsonData.props.pageProps.settings;
+    const profileData = jsonData.props.pageProps.currentUser.profileData || {};
+    const settings = jsonData.props.pageProps.settings || {};
 
     return {
       id: currentUser.id,
@@ -15,42 +19,42 @@ export function parseUserData(jsonData) {
       firstName: currentUser.firstName,
       lastName: currentUser.lastName,
       email: currentUser.email,
-      bio: currentUser.metadata.bio,
-      location: currentUser.metadata.location,
+      bio: currentUser.metadata?.bio || '',
+      location: currentUser.metadata?.location || '',
       createdAt: currentUser.createdAt,
       updatedAt: currentUser.updatedAt,
-      profilePicture: currentUser.metadata.pictureProfile,
+      profilePicture: currentUser.metadata?.pictureProfile || '',
       socialLinks: {
-        facebook: currentUser.metadata.linkFacebook,
-        instagram: currentUser.metadata.linkInstagram,
-        linkedin: currentUser.metadata.linkLinkedin,
-        twitter: currentUser.metadata.linkTwitter,
-        website: currentUser.metadata.linkWebsite,
-        youtube: currentUser.metadata.linkYoutube,
+        facebook: currentUser.metadata?.linkFacebook || '',
+        instagram: currentUser.metadata?.linkInstagram || '',
+        linkedin: currentUser.metadata?.linkLinkedin || '',
+        twitter: currentUser.metadata?.linkTwitter || '',
+        website: currentUser.metadata?.linkWebsite || '',
+        youtube: currentUser.metadata?.linkYoutube || '',
       },
       stats: {
-        totalPosts: profileData.totalPosts,
-        totalFollowers: profileData.totalFollowers,
-        totalFollowing: profileData.totalFollowing,
-        totalSharedGroups: profileData.totalSharedGroups,
+        totalPosts: profileData?.totalPosts || 0,
+        totalFollowers: profileData?.totalFollowers || 0,
+        totalFollowing: profileData?.totalFollowing || 0,
+        totalSharedGroups: profileData?.totalSharedGroups || 0,
       },
       groups: {
-        memberOf: currentUser.profileData.groupsMemberOf.map(group => ({
+        memberOf: currentUser.profileData?.groupsMemberOf?.map(group => ({
           id: group.id,
           name: group.name,
-          displayName: group.metadata.displayName,
-          description: group.metadata.description,
-          totalMembers: group.metadata.totalMembers,
-          totalPosts: group.metadata.totalPosts,
-        })),
-        createdByUser: jsonData.props.pageProps.currentUser.profileData.groupsCreatedByUser.map(group => ({
+          displayName: group.metadata?.displayName,
+          description: group.metadata?.description,
+          totalMembers: group.metadata?.totalMembers,
+          totalPosts: group.metadata?.totalPosts,
+        })) || [],
+        createdByUser: currentUser.profileData?.groupsCreatedByUser?.map(group => ({
           id: group.id,
           name: group.name,
-          displayName: group.metadata.displayName,
-          description: group.metadata.description,
-          totalMembers: group.metadata.totalMembers,
-          totalPosts: group.metadata.totalPosts,
-        })),
+          displayName: group.metadata?.displayName,
+          description: group.metadata?.description,
+          totalMembers: group.metadata?.totalMembers,
+          totalPosts: group.metadata?.totalPosts,
+        })) || [],
       },
       pageTitle: settings.pageTitle,
       pageMeta: settings.pageMeta,
